@@ -19,8 +19,8 @@ def GetDistance(Distance, unit):
     return Distance*1.61
   
 
-def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, metres
-  Speed = (Distance/1000)/(Time/60)#input time as minutes, convert to hours
+def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
+  Speed = Distance/(Time/60)#input time as minutes, convert to hours
   Mph = Speed/1.61 #converts to miles for calculator
   MET = (Mph*1.8)-2 #approximation using online MET values for different speeds
   Calories = ((Time*MET)*(3.5*Weight))/200 #formula for calories burnt
