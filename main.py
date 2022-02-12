@@ -1,3 +1,4 @@
+from sqlite3 import Time
 import tkinter as tk
 from tkinter import ttk
 
@@ -52,6 +53,51 @@ def BuildWindow():
 
   exit_button = ttk.Button(window, text='EXIT', command=lambda: window.quit())
   exit_button.pack()
+
+  def GetHeightAgeWeight():
+    Age = AgeBox.get("1.0", "end")
+    Height = HeightBox.get("1.0", "end")
+    Weight = WeightBox.get("1.0", "end")
+
+    print(Age, Height, Weight)
+
+  HeightBox = tk.Text(window, height=1)
+  HeightBox.insert("1.0", "Enter Height (m)")
+  HeightBox.pack()
+
+  AgeBox = tk.Text(window, height=1)
+  AgeBox.insert("1.0", "Enter Age (yrs)")
+  AgeBox.pack()
+
+  WeightBox = tk.Text(window, height=1)
+  WeightBox.insert("1.0", "Enter Weight (kg)")
+  WeightBox.pack()
+
+  SubmitButton1 = tk.Button(window, height=1, width = 10, text = "Submit Height, Age, Weight.", command = GetHeightAgeWeight())
+  SubmitButton1.pack()
+
+  def GetDayDistanceTime():
+    Day = DayBox.get("1.0", "end")
+    Distance = DistanceBox.get("1.0", "end")
+    Time = TimeBox.get("1.0", "end")
+
+    print(Day, Distance, Time)
+
+
+  DayBox = tk.Text(window, height=1)
+  DayBox.insert("1.0", "Enter day (mon, tues, wed..)")
+  DayBox.pack()
+
+  DistanceBox = tk.Text(window, height=1)
+  DistanceBox.insert("1.0", "Enter Distance (km)")
+  DistanceBox.pack()
+
+  TimeBox = tk.Text(window, height=1)
+  TimeBox.insert("1.0", "Enter time taken for walk")
+  TimeBox.pack()
+
+  SubmitButton2 = tk.Button(window, height=1, width = 10, text = "Submit Day, Distance, Time.", command = GetDayDistanceTime())
+  SubmitButton2.pack()
 
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
