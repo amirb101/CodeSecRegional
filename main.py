@@ -24,3 +24,20 @@ def CaloriesBurnt(WEIGHT, HEIGHT, AGE, Distance, Time):
 
   return Calories
 
+def MainLoop():
+  #Build GUI Structure
+
+
+  #Take user inputs for constants named above
+
+  #Save constants to text file
+
+  #If constants are saved to text file they should not be changed
+
+  
+
+  #Call functions
+  BMI = GetBMI(WEIGHT, HEIGHT)
+
+if __name__ == "__main__":
+  MainLoop()
