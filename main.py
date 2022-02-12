@@ -36,9 +36,12 @@ def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
 def LoadData():
   FileHandle = "save.txt"
 
+def BuildWindow():
+  window = tk.Tk()
+
 def MainLoop():
   #Build GUI Structure
-
+  BuildWindow()
   #Take user inputs for constants named above
 
   #Save constants to text file
