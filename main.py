@@ -71,7 +71,7 @@ def BuildWindow():
   window.title('Healthy Steps')
 
   global Inputs
-  Inputs = [0,0,0,0,0,0]
+  Inputs = [0,0,0,0,0,0] #age, height, weight, day, distance, time
 
   ScreenWidth = window.winfo_screenwidth()
   ScreenHeight = window.winfo_screenheight()
