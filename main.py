@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 from sympy import false
 
@@ -49,8 +50,11 @@ def BuildWindow():
 
   window.resizable(False, False)
 
+  exit_button = ttk.Button(window, text='EXIT', command=lambda: window.quit())
+  exit_button.pack()
+
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
-  
+
   window.mainloop()
 
 def MainLoop():
