@@ -127,7 +127,7 @@ def BuildWindow():
   DistanceBox.pack()
 
   TimeBox = tk.Text(window, height=1)
-  TimeBox.insert("1.0", "Enter time taken for walk")
+  TimeBox.insert("1.0", "Enter time taken for walk (mins)")
   TimeBox.pack()
 
   SubmitButton2 = tk.Button(window, height=1, width = 30, text = "Submit Day, Distance, Time.", command = GetDayDistanceTime)
