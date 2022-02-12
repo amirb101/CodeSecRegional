@@ -28,6 +28,30 @@ def GetDistance(Distance, unit):
   elif unit.lower() == "mil" or unit.lower() == "miles":
     return Distance*1.61
   
+#file writing constants
+SaveFile = open("Save.txt", "w")
+#SaveFile.writeline("testwrite")
+SaveFile.write(str(HEIGHT)+"\n")
+SaveFile.write(str(WEIGHT)+"\n")
+SaveFile.write(str(AGE)+"\n")
+SaveFile.close()
+
+#writetoday
+def SaveData(Time, Distance, NewDay):
+  SaveFile = open("Save.txt", "a")
+  if NewDay == True:
+    SaveFile.write(".\n")
+  else:
+    SaveFile.write(",\n")
+  SaveFile.write(str(Time)+"\n")
+  SaveFile.write(str(Distance)+"\n")
+
+#SaveData(60, 10, 1)#<--testing sub
+
+#testreading
+#fr = open("Save.txt", "r")
+#print(fr.read())
+
 
 def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
   Speed = Distance/(Time/60)#input time as minutes, convert to hours
