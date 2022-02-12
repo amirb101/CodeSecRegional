@@ -140,10 +140,13 @@ def BuildWindow():
 
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
-  
+  ListPrev = Inputs
   while 1:
     window.update_idletasks()
     window.update()
+    ListNew = Inputs
+    if ListNew != ListPrev:
+      SaveData(Inputs[5], Inputs[4], Inputs[3])
 
 def MainLoop():
   #Build GUI Structure
