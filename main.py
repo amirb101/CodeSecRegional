@@ -136,7 +136,7 @@ def BuildWindow():
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
   
-  while not Exit:
+  while 1:
     window.update_idletasks()
     window.update()
 
