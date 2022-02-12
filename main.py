@@ -1,7 +1,11 @@
+import tkinter as tk
+
 WEIGHT = 70
 HEIGHT = 170
 AGE = 21
 #RESTINGBPM = 0
+WIDTH = 960
+HEIGHT = 480
 
 
 def GetBMI(WEIGHT, HEIGHT):
