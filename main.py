@@ -29,6 +29,9 @@ def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, metres
 
 #print(CaloriesCalculate(30, 80, 10000)) #<-- for testing
 
+def LoadData():
+  FileHandle = "save.txt"
+
 def MainLoop():
   #Build GUI Structure
 
