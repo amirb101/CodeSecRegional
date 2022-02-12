@@ -146,7 +146,8 @@ def BuildWindow():
     window.update()
     ListNew = Inputs
     if ListNew != ListPrev:
-      SaveData(Inputs[5], Inputs[4], Inputs[3])
+      print(ListNew)
+      #SaveData(Inputs[5], Inputs[4], Inputs[3])
 
 def MainLoop():
   #Build GUI Structure
