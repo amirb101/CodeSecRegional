@@ -27,7 +27,7 @@ def GetDistance(Distance, unit):
     return Distance/100000
   elif unit.lower() == "mil" or unit.lower() == "miles":
     return Distance*1.61
-  
+"""
 #file writing constants
 SaveFile = open("Save.txt", "w")
 #SaveFile.writeline("testwrite")
@@ -50,7 +50,7 @@ def SaveData(Time, Distance):
     SaveFile.write(",\n")
   SaveFile.write(str(Time)+"\n")
   SaveFile.write(str(Distance)+"\n")
-
+"""
 #SaveData(60, 10, 1)#<--testing sub
 
 #testreading
