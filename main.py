@@ -31,14 +31,19 @@ def GetDistance(Distance, unit):
 #file writing constants
 SaveFile = open("Save.txt", "w")
 #SaveFile.writeline("testwrite")
-SaveFile.write(str(HEIGHT)+"\n")
-SaveFile.write(str(WEIGHT)+"\n")
-SaveFile.write(str(AGE)+"\n")
+SaveFile.write(str(Inputs[3])+"\n")
+If Inputs[1] != 0:
+  SaveFile.write(str(Inputs[1])+"\n")
+If Inputs[2] != 0:
+  SaveFile.write(str(Inputs[2])+"\n")
+If Inputs[0] != 0:
+  SaveFile.write(str(Inputs[0])+"\n")
 SaveFile.close()
 
 #writetoday
-def SaveData(Time, Distance, NewDay):
+def SaveData(Time, Distance):
   SaveFile = open("Save.txt", "a")
+  NewDay = IsNewDay(Inputs[3])
   if NewDay == True:
     SaveFile.write(".\n")
   else:
