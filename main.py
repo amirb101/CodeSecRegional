@@ -1,12 +1,13 @@
 import tkinter as tk
 
+from sympy import false
+
 WEIGHT = 70
 HEIGHT = 170
 AGE = 21
 #RESTINGBPM = 0
 WIDTH = 960
 HEIGHT = 480
-
 
 def GetBMI(WEIGHT, HEIGHT):
   BMI = WEIGHT/(HEIGHT**2)
@@ -38,6 +39,19 @@ def LoadData():
 
 def BuildWindow():
   window = tk.Tk()
+  window.title('Healthy Steps')
+
+  ScreenWidth = window.winfo_screenwidth()
+  ScreenHeight = window.winfo_screenheight()
+
+  CenterX = int(ScreenWidth/2 - WIDTH / 2)
+  CenterY = int(ScreenHeight/2 - HEIGHT / 2)
+
+  window.resizable(False, False)
+
+  window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
+  
+  window.mainloop()
 
 def MainLoop():
   #Build GUI Structure
