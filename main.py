@@ -31,7 +31,6 @@ def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, metres
 
 def MainLoop():
   #Build GUI Structure
-  #this is andrew
 
   #Take user inputs for constants named above
 
