@@ -81,9 +81,6 @@ def BuildWindow():
 
   window.resizable(False, False)
 
-  Exit = 0
-  exit_button = ttk.Button(window, text='EXIT', command=(Exit+1))
-  exit_button.pack()
 
   def GetHeightAgeWeight():
     Age = AgeBox.get("1.0", "end").strip()
