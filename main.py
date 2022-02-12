@@ -116,7 +116,7 @@ def BuildWindow():
     Time = TimeBox.get("1.0", "end").strip()
 
     print(Day, Distance, Time)
-    Inputs[3] = Day    
+    Inputs[3] = Day.lower()
     Inputs[4] = Distance    
     Inputs[5] = Time    
 
