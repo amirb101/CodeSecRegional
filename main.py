@@ -1,6 +1,7 @@
 from sqlite3 import Time
 import tkinter as tk
 from tkinter import ttk
+from xml.sax.xmlreader import InputSource
 
 from sympy import false
 
@@ -10,6 +11,8 @@ AGE = 21
 #RESTINGBPM = 0
 WIDTH = 960
 HEIGHT = 480
+
+
 
 def GetBMI(WEIGHT, HEIGHT):
   BMI = WEIGHT/(HEIGHT**2)
@@ -43,6 +46,9 @@ def BuildWindow():
   window = tk.Tk()
   window.title('Healthy Steps')
 
+  global Inputs
+  Inputs = [0,0,0,0,0,0]
+
   ScreenWidth = window.winfo_screenwidth()
   ScreenHeight = window.winfo_screenheight()
 
@@ -51,15 +57,19 @@ def BuildWindow():
 
   window.resizable(False, False)
 
-  exit_button = ttk.Button(window, text='EXIT', command=lambda: window.quit())
+  Exit = 0
+  exit_button = ttk.Button(window, text='EXIT', command=(Exit+1))
   exit_button.pack()
 
   def GetHeightAgeWeight():
-    Age = AgeBox.get("1.0", "end")
-    Height = HeightBox.get("1.0", "end")
-    Weight = WeightBox.get("1.0", "end")
+    Age = AgeBox.get("1.0", "end").strip()
+    Height = HeightBox.get("1.0", "end").strip()
+    Weight = WeightBox.get("1.0", "end").strip()
 
     print(Age, Height, Weight)
+    Inputs[0]= Age
+    Inputs[1]= Height
+    Inputs[2]= Weight
 
   HeightBox = tk.Text(window, height=1)
   HeightBox.insert("1.0", "Enter Height (m)")
@@ -73,15 +83,18 @@ def BuildWindow():
   WeightBox.insert("1.0", "Enter Weight (kg)")
   WeightBox.pack()
 
-  SubmitButton1 = tk.Button(window, height=1, width = 10, text = "Submit Height, Age, Weight.", command = GetHeightAgeWeight())
+  SubmitButton1 = tk.Button(window, height=1, width = 30, text = "Submit Height, Age, Weight.", command = GetHeightAgeWeight)
   SubmitButton1.pack()
 
   def GetDayDistanceTime():
-    Day = DayBox.get("1.0", "end")
-    Distance = DistanceBox.get("1.0", "end")
-    Time = TimeBox.get("1.0", "end")
+    Day = DayBox.get("1.0", "end").strip()
+    Distance = DistanceBox.get("1.0", "end").strip()
+    Time = TimeBox.get("1.0", "end").strip()
 
     print(Day, Distance, Time)
+    Inputs[3] = Day    
+    Inputs[4] = Distance    
+    Inputs[5] = Time    
 
 
   DayBox = tk.Text(window, height=1)
@@ -96,16 +109,20 @@ def BuildWindow():
   TimeBox.insert("1.0", "Enter time taken for walk")
   TimeBox.pack()
 
-  SubmitButton2 = tk.Button(window, height=1, width = 10, text = "Submit Day, Distance, Time.", command = GetDayDistanceTime())
+  SubmitButton2 = tk.Button(window, height=1, width = 30, text = "Submit Day, Distance, Time.", command = GetDayDistanceTime)
   SubmitButton2.pack()
 
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
-  window.mainloop()
+  
+  while not Exit:
+    window.update_idletasks()
+    window.update()
 
 def MainLoop():
   #Build GUI Structure
   BuildWindow()
+
   #Take user inputs for constants named above
 
   #Save constants to text file
@@ -115,7 +132,6 @@ def MainLoop():
   
 
   #Call functions
-  BMI = GetBMI(WEIGHT, HEIGHT)
 
 if __name__ == "__main__":
   MainLoop()
