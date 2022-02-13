@@ -1,5 +1,6 @@
+from ast import expr_context
 import tkinter as tk
-
+from math import floor
 from sympy import false
 
 WIDTH = 960
@@ -18,12 +19,12 @@ def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
   return Calories
 
 global Inputs
-Inputs = [0,0,0,0,0,0]
+Inputs = [0,0,0,0,0,0,0,0]
+
 
 def BuildWindow():
   window = tk.Tk()
   window.title('Healthy Steps')
-  ListPrev = Inputs
 
   ScreenWidth = window.winfo_screenwidth()
   ScreenHeight = window.winfo_screenheight()
@@ -33,8 +34,6 @@ def BuildWindow():
 
   window.resizable(False, False)
 
-  global values0
-  values0 = False
 
   def GetHeightAgeWeight():
     Age = AgeBox.get("1.0", "end").strip()
@@ -46,7 +45,7 @@ def BuildWindow():
     Inputs[1]= Height
     Inputs[2]= Weight
 
-    values0 = True
+    Inputs[6] = True
 
   HeightBox = tk.Text(window, height=1)
   HeightBox.insert("1.0", "Enter Height (m)")
@@ -63,8 +62,6 @@ def BuildWindow():
   SubmitButton1 = tk.Button(window, height=1, width = 30, text = "Submit Height, Age, Weight.", command = GetHeightAgeWeight)
   SubmitButton1.pack()
 
-  global values1
-  values1 = False
 
   def GetDayDistanceTime():
     Day = DayBox.get("1.0", "end").strip()
@@ -76,7 +73,7 @@ def BuildWindow():
     Inputs[4] = Distance    
     Inputs[5] = Time
 
-    values1 = True 
+    Inputs[7] = True
 
   DayBox = tk.Text(window, height=1)
   DayBox.insert("1.0", "Enter day (mon, tues, wed..)")
@@ -93,37 +90,29 @@ def BuildWindow():
   SubmitButton2 = tk.Button(window, height=1, width = 30, text = "Submit Day, Distance, Time.", command = GetDayDistanceTime)
   SubmitButton2.pack()
 
+  # if Inputs[6] and Inputs[7]:
+
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
-
   while 1:
-    if values0 and values1:
-      window2 = tk.Tk()
-      window2.title("Calores Burnt")
-
-      ScreenWidth = window2.winfo_screenwidth()
-      ScreenHeight = window2.winfo_screenheight()
-
-      CenterX = int(ScreenWidth/2 - WIDTH / 2)
-      CenterY = int(ScreenHeight/2 - HEIGHT / 2)
-
-      window.resizable(False, False)
-
-      Calories = CaloriesCalculate(int(Inputs[5]), int(Inputs[2]), int(Inputs[4]))
-      CaloriesBox = tk.Label(window2, height=1, text="You have burnt {} calories during the inputted session".format(str(Calories)))
-      CaloriesBox.pack()
-
-      BMI = GetBMI(int(Inputs[2]), int(Inputs[1]))
-      BMIBOX = tk.Label(window2, height=1, text= "Your BMI is {}".format(str(BMI)))
-      BMIBOX.pack()
-
-      window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
-
-      window2.mainloop()
     window.update_idletasks()
     window.update()
-    values0 = False
-    values1 = False
-      
+    if Inputs[6] and Inputs[7]:
+      try:
+        Calories = floor(CaloriesCalculate(int(Inputs[5]), int(Inputs[2]), int(Inputs[4])))
+      except:
+        Calories = 0
+      CaloriesBox = tk.Label(window, height=1, text="You have burnt {} calories during the inputted session".format(str(Calories)))
+      CaloriesBox.pack()
+      try:
+        BMI = floor(GetBMI(int(Inputs[2]), int(Inputs[1])))
+      except:
+        BMI = 0
+      BMIBOX = tk.Label(window, height=1, text= "Your BMI is {}".format(str(BMI)))
+      BMIBOX.pack()
+      for i in range(len(Inputs)):
+        Inputs[i] = '0'
+
+
 if __name__ == "__main__":
   BuildWindow()
