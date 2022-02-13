@@ -1,62 +1,13 @@
-from sqlite3 import Time
 import tkinter as tk
-from tkinter import ttk
-from xml.sax.xmlreader import InputSource
 
 from sympy import false
 
-WEIGHT = 70
-HEIGHT = 170
-AGE = 21
-#RESTINGBPM = 0
 WIDTH = 960
 HEIGHT = 480
-
-
 
 def GetBMI(WEIGHT, HEIGHT):
   BMI = WEIGHT/(HEIGHT**2)
   return BMI
-
-def GetDistance(Distance, unit):
-  if unit.lower() == "km":
-    return Distance
-  elif unit.lower() == "m":
-    return Distance/1000
-  elif unit.lower() == "cm":
-    return Distance/100000
-  elif unit.lower() == "mil" or unit.lower() == "miles":
-    return Distance*1.61
-"""
-#file writing constants
-SaveFile = open("Save.txt", "w")
-#SaveFile.writeline("testwrite")
-SaveFile.write(str(Inputs[3])+"\n")
-If Inputs[1] != 0:
-  SaveFile.write(str(Inputs[1])+"\n")
-If Inputs[2] != 0:
-  SaveFile.write(str(Inputs[2])+"\n")
-If Inputs[0] != 0:
-  SaveFile.write(str(Inputs[0])+"\n")
-SaveFile.close()
-
-#writetoday
-def SaveData(Time, Distance):
-  SaveFile = open("Save.txt", "a")
-  NewDay = IsNewDay(Inputs[3])
-  if NewDay == True:
-    SaveFile.write(".\n")
-  else:
-    SaveFile.write(",\n")
-  SaveFile.write(str(Time)+"\n")
-  SaveFile.write(str(Distance)+"\n")
-"""
-#SaveData(60, 10, 1)#<--testing sub
-
-#testreading
-#fr = open("Save.txt", "r")
-#print(fr.read())
-
 
 def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
   Speed = Distance/(Time/60)#input time as minutes, convert to hours
@@ -66,17 +17,13 @@ def CaloriesCalculate(Time, Weight, Distance): #minutes, kg, Kilometres
 
   return Calories
 
-#print(CaloriesCalculate(30, 80, 10000)) #<-- for testing
-
-def LoadData():
-  FileHandle = "save.txt"
+global Inputs
+Inputs = [0,0,0,0,0,0]
 
 def BuildWindow():
   window = tk.Tk()
   window.title('Healthy Steps')
-
-  global Inputs
-  Inputs = [0,0,0,0,0,0] #age, height, weight, day, distance, time
+  ListPrev = Inputs
 
   ScreenWidth = window.winfo_screenwidth()
   ScreenHeight = window.winfo_screenheight()
@@ -86,16 +33,20 @@ def BuildWindow():
 
   window.resizable(False, False)
 
+  global values0
+  values0 = False
 
   def GetHeightAgeWeight():
     Age = AgeBox.get("1.0", "end").strip()
     Height = HeightBox.get("1.0", "end").strip()
     Weight = WeightBox.get("1.0", "end").strip()
 
-    print(Age, Height, Weight)
+    # print(Age, Height, Weight)
     Inputs[0]= Age
     Inputs[1]= Height
     Inputs[2]= Weight
+
+    values0 = True
 
   HeightBox = tk.Text(window, height=1)
   HeightBox.insert("1.0", "Enter Height (m)")
@@ -112,16 +63,20 @@ def BuildWindow():
   SubmitButton1 = tk.Button(window, height=1, width = 30, text = "Submit Height, Age, Weight.", command = GetHeightAgeWeight)
   SubmitButton1.pack()
 
+  global values1
+  values1 = False
+
   def GetDayDistanceTime():
     Day = DayBox.get("1.0", "end").strip()
     Distance = DistanceBox.get("1.0", "end").strip()
     Time = TimeBox.get("1.0", "end").strip()
 
-    print(Day, Distance, Time)
+    # print(Day, Distance, Time)
     Inputs[3] = Day.lower()
     Inputs[4] = Distance    
-    Inputs[5] = Time    
+    Inputs[5] = Time
 
+    values1 = True 
 
   DayBox = tk.Text(window, height=1)
   DayBox.insert("1.0", "Enter day (mon, tues, wed..)")
@@ -140,28 +95,35 @@ def BuildWindow():
 
   window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
 
-  ListPrev = Inputs
+
   while 1:
+    if values0 and values1:
+      window2 = tk.Tk()
+      window2.title("Calores Burnt")
+
+      ScreenWidth = window2.winfo_screenwidth()
+      ScreenHeight = window2.winfo_screenheight()
+
+      CenterX = int(ScreenWidth/2 - WIDTH / 2)
+      CenterY = int(ScreenHeight/2 - HEIGHT / 2)
+
+      window.resizable(False, False)
+
+      Calories = CaloriesCalculate(int(Inputs[5]), int(Inputs[2]), int(Inputs[4]))
+      CaloriesBox = tk.Label(window2, height=1, text="You have burnt {} calories during the inputted session".format(str(Calories)))
+      CaloriesBox.pack()
+
+      BMI = GetBMI(int(Inputs[2]), int(Inputs[1]))
+      BMIBOX = tk.Label(window2, height=1, text= "Your BMI is {}".format(str(BMI)))
+      BMIBOX.pack()
+
+      window.geometry('{}x{}+{}+{}'.format(WIDTH, HEIGHT, CenterX, CenterY))
+
+      window2.mainloop()
     window.update_idletasks()
     window.update()
-    ListNew = Inputs
-    if ListNew != ListPrev:
-      print(ListNew)
-      #SaveData(Inputs[5], Inputs[4], Inputs[3])
-
-def MainLoop():
-  #Build GUI Structure
-  BuildWindow()
-
-  #Take user inputs for constants named above
-
-  #Save constants to text file
-
-  #If constants are saved to text file they should not be changed
-
-  
-
-  #Call functions
-
+    values0 = False
+    values1 = False
+      
 if __name__ == "__main__":
-  MainLoop()
+  BuildWindow()
